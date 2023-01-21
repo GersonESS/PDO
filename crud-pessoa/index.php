@@ -14,87 +14,127 @@ $p = new Pessoa("crudpdo","localhost","root","gabibi89");
 <body>
  <?php  
     if(isset($_POST['nome']))
+    //clicou no botao cadastrar ou editar
     {
-        $nome = addslashes($_POST['nome']);
-        $telefone = addslashes($_POST['telefone']);
-        $email = addslashes($_POST['email']);
-        if(!empty($nome) && !empty($telefone) && !empty($email))
+        //-------------------editar-----------------
+        if(isset($_GET['id-up']) && !empty($_GET['id-up']))
         {
-            if(!$p->cadastrarPessoa($nome, $telefone, $email))          
+            $id_upd   = addslashes($_POST[$_GET['id-up']]);
+            $nome     = addslashes($_POST['nome']);
+            $telefone = addslashes($_POST['telefone']);
+            $email    = addslashes($_POST['email']);
+            if(!empty($nome) && !empty($telefone) && !empty($email))
             {
-                echo "email ja esta cadastrado";
-            }
-        }
+                $p->atualizarDados($id_upd, $nome, $telefone, $email); 
+                header("location: index.php");        
+            }      
+            else
+            {
+
+                ?>
+                    <div class="aviso">
+                        <h4>preencha todos campos!MSG1</h4>
+                    </div>
+                    <?php
+            
+            }    
+    }
+        //--------------------cadastrar
         else
         {
-            echo "preencha todos campos";
-        }
-    }
- ?>
+            $nome     = addslashes($_POST['nome']);
+            $telefone = addslashes($_POST['telefone']);
+            $email    = addslashes($_POST['email']);
+            if(!empty($nome) && !empty($telefone) && !empty($email))
+            {
+                if(!$p->cadastrarPessoa($nome, $telefone, $email))          
+                {
+                    
+                    ?>
+                    <div class="aviso">
+                        <h4>email ja esta cadastrado!MSG3</h4>
+                    </div>
+                    <?php
+                    
+                }
+            }
+            else
+            {
 
+                ?>
+                    <div class="aviso">
+                        <h4>preencha todos campos!MSG2</h4>
+                    </div>
+                    <?php
+                
+            }
+        }
+      }    
+ ?>
 <?php
      if(isset($_GET['id_up']))
      {
          $id_update = addslashes($_GET['id_up']);
-         $res = $p->busbarDadosPessoa($id_update);
-         header("location: index.php");
+         $res = $p->buscarDadosPessoa($id_update);
      }
 ?>
-
     <section id="esquerda">
         <form method="POST">
-            <h2>Cadastrar Pessoa </h2>
+            <h2>Cadastrar Pessoa 3</h2>
             <label for="nome">Nome</label>
             <input type="text" name="nome" id="nome"
             value="<?php if(isset($res)){echo $res['nome'];}?>"
            >
             <label for="telefone">Telefone</label>
             <input type="text" name="telefone" id="telefone"
-            value="<?php if(isset($res)){echo $res['twlwfone'];}?>"
+            value="<?php if(isset($res)){echo $res['telefone'];}?>"
             >
             <label for="email">Email</label>
             <input type="email" name="email" id="email"
             value="<?php if(isset($res)){echo $res['email'];}?>"
             >
             <input type="submit"
-             value="<?php if(isset($res)){echo "Atualizar"}else{echo"Cadastrar} ?>">
+             value="<?php if(isset($res)){echo "Atualizar";} else {echo "Cadastrar";} ?>">
         </form>
     </section>
     <section id="direita">
     <table>
-            <tr id="titulo">
-                <td>Nome</td>
-                <td>Telefone</td>
-                <td colspan="2">Email</td>
+        <tr id="titulo">
+            <td>Nome</td>
+            <td>Telefone</td>
+            <td colspan="2">Email</td>
             </tr>
-        <?php
-            $dados = $p->buscarDados();
-            if(count($dados) > 0)//tem pessoas no banco
+    <?php
+        $dados = $p->buscarDados();
+        if(count($dados) > 0)//tem pessoas no banco
+        {
+            for($i=0;$i < count($dados); $i++)
             {
-                for($i=0;$i < count($dados); $i++)
+                echo "<tr>";
+                foreach($dados[$i] as $k => $v)
                 {
-                    echo "<tr>";
-                    foreach($dados[$i] as $k => $v)
+                    if($k != "id")
                     {
-                        if($k != "id")
-                        {
-                            echo "<td>".$v."</td>";
-                        }
+                        echo "<td>".$v."</td>";
                     }
-                    ?>
-                    <td>
-                        <?php echo $dados[$i]['id']; ?> 
-                        <a href="index.php?id_up=<?php echo $dados[$i]['id'];?>">Editar</a>
-                        <a href="index.php?id=<?php echo $dados[$i]['id'];?>">Exluir</a>
-                    </td>
+                }
+                ?>
+            <td>
+                <?php echo $dados[$i]['id']; ?> 
+                <a href="index.php?id_up=<?php echo $dados[$i]['id'];?>">Editar</a>
+                <a href="index.php?id=<?php echo $dados[$i]['id'];?>">Exluir</a>
+            </td>
                     <?php
                     echo "</tr>";      
                 }
             }
             else // o banco esta vazio
             {
-                echo "Banco Vazio";
-            } 
+                ?><div class="aviso">
+                    <h4>Ainda não há pessoas cadastradas!</h4>
+                </div>
+                <?php
+            }  
         ?>
         </table>
     </section>

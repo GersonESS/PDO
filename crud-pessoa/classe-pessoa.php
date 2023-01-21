@@ -57,19 +57,26 @@ Class Pessoa
      } 
 
                 // /  funcao para
-    public function busbarDadosPessoa($id)
+    public function buscarDadosPessoa($id)
     {   
         $res = array();                
-        $cmd = $this->pdo->prepare("SELECT id FROM pessoa WHERE id = :id");
+        $cmd = $this->pdo->prepare("SELECT * FROM pessoa WHERE id = :id");
         $cmd->bindValue(":id",$id);
         $cmd->execute();
         $res = $cmd->fetch(PDO::FETCH_ASSOC);
         return $res;
     }
-        // /  funcao para
-    public function atualizarDados() 
+        // /  funcao para atualizar Dados
+    public function atualizarDados($id, $nome, $telefone, $email) 
     {
-        
-    }    
-}       
+        $cmd = $this->pdo->prepare("UPDATE pessoa SET nome = :n,telefone = :t,email = :e WHERE id = :id");
+        $cmd->bindValue(":n",$nome);
+        $cmd->bindValue(":t",$telefone);
+        $cmd->bindValue(":e",$email);
+        $cmd->bindValue(":id",$id);
+        $cmd->execute();
+        return true;
+    }  
+}    
+       
 ?>
