@@ -1,8 +1,6 @@
 <?php
-
 require_once 'classe-pessoa.php';
 $p = new Pessoa("crudpdo","localhost","root","gabibi89");
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,13 +13,27 @@ $p = new Pessoa("crudpdo","localhost","root","gabibi89");
 </head>
 <body>
  <?php  
-
-
+    if(isset($_POST['nome']))
+    {
+        $nome = addslashes($_POST['nome']);
+        $telefone = addslashes($_POST['telefone']);
+        $email = addslashes($_POST['email']);
+        if(!empty($nome) && !empty($telefone) && !empty($email))
+        {
+            if(!$p->cadastrarPessoa($nome, $telefone, $email))          
+            {
+                echo "email ja esta cadastrado";
+            }
+        }
+        else
+        {
+            echo "preencha todos campos";
+        }
+    }
  ?>
-
     <section id="esquerda">
         <form method="POST">
-            <h2>Cadastrar Pessoa v0</h2>
+            <h2>Cadastrar Pessoa </h2>
             <label for="nome">Nome</label>
             <input type="text" name="nome" id="nome">
             <label for="telefone">Telefone</label>
@@ -36,7 +48,7 @@ $p = new Pessoa("crudpdo","localhost","root","gabibi89");
             <tr id="titulo">
                 <td>Nome</td>
                 <td>Telefone</td>
-                <td colspan="2">Email></td>
+                <td colspan="2">Email</td>
             </tr>
         <?php
             $dados = $p->buscarDados();
@@ -57,23 +69,13 @@ $p = new Pessoa("crudpdo","localhost","root","gabibi89");
                     <?php
                     echo "</tr>";      
                 }
-
             }
             else // o banco esta vazio
             {
                 echo "Banco Vazio";
             } 
-            
-            // echo "<pre>";
-            // var_dump($dados);
-            // echo "</pre>";
         ?>
-        
-            <tr>
-                
-            </tr>
         </table>
     </section>
-    
 </body>
 </html>
