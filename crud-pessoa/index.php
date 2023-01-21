@@ -65,7 +65,11 @@ $p = new Pessoa("crudpdo","localhost","root","gabibi89");
                         }
                     }
                     ?>
-                    <td><a href="">Editar</a><a href="">Exluir</a></td>
+                    <td>
+                        <?phpecho $dados[$i];['id']?>
+                        <a href="">Editar</a>
+                        <a href="index.php?id=<?php echo $dados[$i];['id']?>">Exluir</a>
+                    </td>
                     <?php
                     echo "</tr>";      
                 }
@@ -79,3 +83,12 @@ $p = new Pessoa("crudpdo","localhost","root","gabibi89");
     </section>
 </body>
 </html>
+<?php
+    if(isset$_GET['id'])
+    {
+        $id_pessoa = addslashes($_GET['id'])
+        $p->excluirPessoa($id_pessoa)
+        header("location; index.php");
+    }
+    
+?>

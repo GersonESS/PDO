@@ -48,5 +48,12 @@ Class Pessoa
                 return true;
              } 
     }
+   // /  funcao para 
+     public function excluirPesoa($id)
+     {
+        $bmd = $this->pdo->prepare("DELETE FROM pessoa WHERE id = :id");
+        $cmd->bindValue(":id",$id);
+        $cmd->execute();
+     } 
 }       
 ?>
