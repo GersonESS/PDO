@@ -80,7 +80,7 @@ $p = new Pessoa("crudpdo","localhost","root","gabibi89");
 ?>
     <section id="esquerda">
         <form method="POST">
-            <h2>Cadastrar Pessoa 3</h2>
+            <h2>Cadastrar Pessoa 🔥3</h2>
             <label for="nome">Nome</label>
             <input type="text" name="nome" id="nome"
             value="<?php if(isset($res)){echo $res['nome'];}?>"
