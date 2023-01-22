@@ -22,7 +22,8 @@ Class Pessoa
     public function buscarDados()
     {
         $res = array();
-        $cmd = $this->pdo->query("SELECT * FROM pessoa ORDER BY nome");
+        //$cmd = $this->pdo->query("SELECT * FROM pessoa ORDER BY nome");
+        $cmd = $this->pdo->prepare("SELECT * FROM pessoa ORDER BY nome");
         $res = $cmd->fetchAll(PDO::FETCH_ASSOC);
         return $res;
     }
