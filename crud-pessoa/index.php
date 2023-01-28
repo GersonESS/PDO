@@ -13,8 +13,7 @@ $p = new Pessoa("crudpdo","localhost","root","gabibi89");
 </head>
 <body>
 <?php 
-   // if(isset($_POST['nome']))
-    if(isset($_POST['email']))
+   if(isset($_POST['nome']))
     {     
         $nome     = addslashes($_POST['nome']);         
         $email    = addslashes($_POST['email']);
@@ -34,23 +33,28 @@ $p = new Pessoa("crudpdo","localhost","root","gabibi89");
             echo "Preencha todos os campos";
         }
     }
-
-
+?>
+<?php
+    if(isset($_GET['id_up']))
+    {
+        $id_update = addslashes($_GET['id_up']);
+        $res = $p->buscarDadosPessoa($id_update);
+    }
 ?>
     <section id="esquerda">
         <form method="POST">
-            <h2>Cadastrar Pessoa 2</h2>
+            <h2>Cadastrar Pessoa</h2>
             <label for="nome">Nome</label>
-            <input type="text" name="nome" id="nome">
-            <!-- <label for="telefone">Telefone</label>
-            <input type="tel" nane="telefone" id="telefone"> -->
-
+            <input type="text" name="nome" id="nome"
+            value="<?php if(isset($res)) {echo $res['nome'];} ?>">
             <label for="telefone">Nome</label>
-            <input type="text" name="telefone" id="telefone">
-            
+            <input type="text" name="telefone" id="telefone"
+            value="<?php if(isset($res)) {echo $res['telefone'];} ?>">           
             <label for="email">Email</label>
-            <input type="email" name="email" id="email">
-            <input type="submit" value="Cadastrar">
+            <input type="email" name="email" id="email"
+            value="<?php if(isset($res)) {echo $res['email'];} ?>">
+            <input type="submit" 
+            value="<?php if(isset($res)) {echo "Atualizar";}else{echo "Cadastrar";} ?>">
         </form>       
     </section>
     <section id="direita">
@@ -75,7 +79,7 @@ $p = new Pessoa("crudpdo","localhost","root","gabibi89");
                 }
                 ?>
                   <td>
-                    <a href="">Editar</a>
+                    <a href="index.php?id_up=<?php echo $dados[$i]['id'];?>">Editar</a>
                     <a href="index.php?id=<?php echo $dados[$i]['id'];?>">Excluir</a>
                   </td>
     <?php

@@ -56,7 +56,7 @@ Class Pessoa
         $cmd->execute();
      } 
 
-                // /  funcao para
+                // /  funcao para buscar Dados Pessoa
     public function buscarDadosPessoa($id)
     {   
         $res = array();                
