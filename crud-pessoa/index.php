@@ -35,7 +35,7 @@ $p = new Pessoa("crudpdo","localhost","root","gabibi89");
     }
 ?>
 <?php
-    if(isset($_GET['id_up']))
+    if(isset($_GET['id_up']))//Se a pessoa clicou em editar
     {
         $id_update = addslashes($_GET['id_up']);
         $res = $p->buscarDadosPessoa($id_update);
