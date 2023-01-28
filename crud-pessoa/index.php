@@ -23,7 +23,7 @@ $p = new Pessoa("crudpdo","localhost","root","gabibi89");
             $telefone = addslashes($_POST['telefone']);
             if (!empty($nome) && !empty($telefone) && !empty($email) )
             {//---------------------editar
-               !$p->atualizarDados($id_upd, $nome, $telefone, $email);           
+               $p->atualizarDados($id_upd, $nome, $telefone, $email);           
             }
             else
             {
