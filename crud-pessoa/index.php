@@ -23,10 +23,7 @@ $p = new Pessoa("crudpdo","localhost","root","gabibi89");
             $telefone = addslashes($_POST['telefone']);
             if (!empty($nome) && !empty($telefone) && !empty($email) )
             {//---------------------editar
-               if(!$p->atualizarDados($id_upd, $nome, $telefone, $email))
-               {
-                echo"email ja esta cadstrado";
-               }
+               !$p->atualizarDados($id_upd, $nome, $telefone, $email);           
             }
             else
             {
