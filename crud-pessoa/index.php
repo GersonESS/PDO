@@ -16,19 +16,9 @@ $p = new Pessoa("crudpdo","localhost","root","gabibi89");
    // if(isset($_POST['nome']))
     if(isset($_POST['email']))
     {     
-        print_r($_POST['nome']);
-        print_r($_POST['email']);
-        print_r($_POST['telefone']);
-
-
         $nome     = addslashes($_POST['nome']);         
         $email    = addslashes($_POST['email']);
         $telefone = addslashes($_POST['telefone']);
-
-            print_r($nome);
-            print_r($telefone);
-            print_r($email);
-
         if (!empty($nome) && !empty($telefone) && !empty($email) )
         {
            if(!$p->cadastrarPessoa($nome, $telefone, $email))
@@ -59,7 +49,7 @@ $p = new Pessoa("crudpdo","localhost","root","gabibi89");
             <input type="text" name="telefone" id="telefone">
             
             <label for="email">Email</label>
-            <input type="text" name="email" id="email">
+            <input type="email" name="email" id="email">
             <input type="submit" value="Cadastrar">
         </form>       
     </section>
