@@ -17,7 +17,7 @@ if(isset($_POST['submit']))
 </head>
 <body>
     <section id="esquerda">
-        <form action="ex08.php" method="POST">
+        <form action="ex07.php" method="POST">
             <h2>Cadastrar Pessoa</h2>
             <label for="nome">Nome</label>
             <input type="text" name="nome" id="nome">
@@ -38,9 +38,9 @@ if(isset($_POST['submit']))
              <td colspam="2">Email</td>
          </tr>
          <tr>
-             <td>Gerson</td>
-             <td>999553374</td>
-             <td>gebhsantos@gmail.com</td>
+             <td></td>
+             <td></td>
+             <td></td>
              <td><a href="">Editar</a><a href="">Excluir</a></td>
          </tr>
      </table>
