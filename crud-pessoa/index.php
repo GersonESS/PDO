@@ -96,6 +96,7 @@ $p = new Pessoa("crudpdo","localhost","root","gabibi89");
     {
         $id_pessoa = addslashes($_GET['id']);
         $p->excluirPessoa($id_pessoa);
-        header(location: index.php);
+        header("location: index.php");
     }
+    
 ?>
