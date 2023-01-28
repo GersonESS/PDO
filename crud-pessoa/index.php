@@ -13,25 +13,52 @@ $p = new Pessoa("crudpdo","localhost","root","gabibi89");
 </head>
 <body>
 <?php 
-   if(isset($_POST['nome']))
-    {     
-        $nome     = addslashes($_POST['nome']);         
-        $email    = addslashes($_POST['email']);
-        $telefone = addslashes($_POST['telefone']);
-        if (!empty($nome) && !empty($telefone) && !empty($email) )
+   if(isset($_POST['nome']))//clicou no botao cadastrar ou no botao editar
+    {   //---------------------editar
+        if(isset($_GET['id_up']) && !empty($_GET['id_up']))
         {
-           if(!$p->cadastrarPessoa($nome, $telefone, $email))
-           {
-            echo"email ja esta cadstrado";
-           }
+            $id_upd = addslashes($_GET['id_up']);
+            $nome     = addslashes($_POST['nome']);         
+            $email    = addslashes($_POST['email']);
+            $telefone = addslashes($_POST['telefone']);
+            if (!empty($nome) && !empty($telefone) && !empty($email) )
+            {//---------------------editar
+               if(!$p->atualizarDados($id_upd, $nome, $telefone, $email))
+               {
+                echo"email ja esta cadstrado";
+               }
+            }
+            else
+            {
+                print_r($nome);
+                print_r($telefone);
+                print_r($email);
+                echo "Preencha todos os campos";
+            }
+
         }
-        else
-        {
-            print_r($nome);
-            print_r($telefone);
-            print_r($email);
-            echo "Preencha todos os campos";
-        }
+        //----------------------cadastrar------------------
+         else
+         {
+             $nome     = addslashes($_POST['nome']);         
+             $email    = addslashes($_POST['email']);
+             $telefone = addslashes($_POST['telefone']);
+             if (!empty($nome) && !empty($telefone) && !empty($email) )
+             {
+                if(!$p->cadastrarPessoa($nome, $telefone, $email))
+                {
+                 echo"email ja esta cadstrado";
+                }
+             }
+             else
+             {
+                 print_r($nome);
+                 print_r($telefone);
+                 print_r($email);
+                 echo "Preencha todos os campos";
+             }
+
+         } 
     }
 ?>
 <?php
